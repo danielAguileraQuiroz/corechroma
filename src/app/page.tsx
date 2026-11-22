@@ -92,12 +92,14 @@ const SOLUTIONS: SolutionConfig[] = [
     step: 0.5,
   },
 ];
+
 const VIEW_DISTANCE: Record<SolutionKey, string> = {
   indoor: "Desde ~1,5 m – 3 m (corta distancia)",
   outdoor: "Desde ~5 m – 15 m (fachada / vía pública)",
   transparent: "Desde ~4 m – 12 m (escaparate / fachada)",
   rental: "Desde ~3 m – 10 m (escenario / feria)",
 };
+
 const USE_CASES = [
   {
     title: "Fachada comercial o cartel exterior",
@@ -118,6 +120,26 @@ const USE_CASES = [
     cta: "Configurar Rental",
   },
 ];
+
+const FAQ_ITEMS = [
+  {
+    q: "¿Las medidas que elijo en el simulador coinciden con las del configurador?",
+    a: "La portada sirve para explorar proporciones y distancia de visión orientativa; al pasar a /configurador, el cálculo ajusta la medida real según los cabinets de cada serie para que el montaje y la superficie encajen con precisión.",
+  },
+  {
+    q: "¿Puedo saltar desde la portada directo a un modelo y medida concretos?",
+    a: "Sí. Tanto el simulador interactivo como las tarjetas de casos de uso envían el tipo de pantalla, el ancho y el alto por URL hacia /configurador para precargar la configuración.",
+  },
+  {
+    q: "¿Qué diferencia hay entre Interior, Exterior, Malla Transparente y Rental?",
+    a: "Varían según el pixel pitch (distancia de visión), el brillo en nits, la protección frente a la intemperie y el sistema de montaje fijo o modular para eventos.",
+  },
+  {
+    q: "¿Cómo se tramita la solicitud de presupuesto?",
+    a: "Una vez ajustada la pantalla en /configurador, completas el formulario con tus datos y el tipo de operación junto con los parámetros técnicos calculados.",
+  },
+];
+
 function formatDimension(val: number): string {
   return Number.isInteger(val) ? val.toFixed(0) : val.toFixed(2).replace(/\.?0+$/, "");
 }
@@ -188,6 +210,9 @@ export default function HomePage() {
             </a>
             <a href="#proceso" className="transition hover:text-cyan-400">
               Flujo
+            </a>
+            <a href="#faq" className="transition hover:text-cyan-400">
+              FAQ
             </a>
             <Link href="/configurador" className="transition hover:text-cyan-400">
               Configurador
@@ -274,10 +299,11 @@ export default function HomePage() {
                   key={sol.id}
                   type="button"
                   onClick={() => handleSelectSolution(sol.id)}
-                  className={`rounded-lg px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition ${isSelected
+                  className={`rounded-lg px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition ${
+                    isSelected
                       ? "bg-cyan-400 text-slate-950"
                       : "border border-white/10 bg-white/5 text-slate-300 hover:border-white/25 hover:text-white"
-                    }`}
+                  }`}
                 >
                   {sol.label}
                 </button>
@@ -364,6 +390,7 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
+
             <div className="rounded-xl border border-white/10 bg-[#070b14]/50 px-4 py-3 text-xs text-slate-300">
               <span className="font-bold uppercase tracking-wider text-cyan-400">
                 Distancia de visión orientativa:{" "}
@@ -411,6 +438,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
       {/* Use Cases Section */}
       <section className="mx-auto max-w-7xl px-6 pb-20">
         <div className="mb-8">
@@ -480,6 +508,32 @@ export default function HomePage() {
                 Cada solicitud queda registrada con sus especificaciones técnicas lista para cotizar.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section id="faq" className="border-t border-white/10 bg-[#070b14]">
+        <div className="mx-auto max-w-7xl px-6 py-20">
+          <p className="text-xs font-bold uppercase tracking-widest text-cyan-400">
+            Preguntas Frecuentes
+          </p>
+          <h2 className="mt-2 text-3xl font-black tracking-tight text-white sm:text-4xl">
+            Dudas habituales antes de configurar
+          </h2>
+
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            {FAQ_ITEMS.map((item) => (
+              <div
+                key={item.q}
+                className="rounded-2xl border border-white/10 bg-slate-900/50 p-6"
+              >
+                <h3 className="text-base font-bold text-white">{item.q}</h3>
+                <p className="mt-2.5 text-sm leading-relaxed text-slate-300">
+                  {item.a}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
