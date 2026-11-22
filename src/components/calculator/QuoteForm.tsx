@@ -8,7 +8,7 @@ interface QuoteFormProps {
   calculation: ScreenCalculation | null;
 }
 
-const WHATSAPP_PHONE = '34600000000'; // Sustituye por tu número con prefijo (sin '+' ni espacios)
+const WHATSAPP_PHONE = '34637122102'; // Sustituye por tu número con prefijo (sin '+' ni espacios)
 
 export default function QuoteForm({ selectedSpec, calculation }: QuoteFormProps) {
   const [fullName, setFullName] = useState('');
